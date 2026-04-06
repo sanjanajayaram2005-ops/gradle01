@@ -1,40 +1,32 @@
 pipeline {
-    agent any  // Use any available agent
+    agent any
 
     tools {
-        gradle 'Gradle'  // Ensure this matches the name configured in Jenkins
         jdk 'jdk'
     }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/sanjanajayaram2005-ops/gradle01.git'
+                git branch: 'main', url: 'https://github.com/rishikaa-03/GradleApp.git'
             }
         }
-
         stage('Build') {
             steps {
-                sh 'gradle build'  // Run Gradle build
+                sh 'chmod +x gradlew'
+                sh './gradlew build'
             }
         }
-
         stage('Test') {
             steps {
-                sh 'gradle test'  // Run unit tests
+                sh './gradlew test'
             }
         }
-
-        
-        
-       
         stage('Run Application') {
             steps {
-                // Start the JAR application
-                sh 'gradle run'
+                sh './gradlew run'
             }
         }
-
-        
     }
 
     post {
